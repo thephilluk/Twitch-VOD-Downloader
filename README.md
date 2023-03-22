@@ -8,7 +8,7 @@
   <p align="center">
     A simple Twitch VOD Downloading script built upon <a href="https://github.com/lay295/TwitchDownloader">TwitchDownload made by lay295</a>
     <br />
-    <a href="https://github.com/thephilluk/Twitch-VOD-Downloader/README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/thephilluk/Twitch-VOD-Downloader/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/thephilluk/Twitch-VOD-Downloader/issues">Report Bug</a>
