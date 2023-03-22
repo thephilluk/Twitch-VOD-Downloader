@@ -37,7 +37,6 @@ print("Got userdata for " + str(userData["id"]) + ":" + userData["display_name"]
 
 print("---------")
 
-#print("Getting Videos")
 doLoop = True
 first = True
 vidList = []
@@ -62,10 +61,8 @@ while doLoop:
         print(json.loads(userVideosOrg.text)["error"])
         sys.exit(json.loads(json.loads(userVideosOrg.text)["message"])["error"])    
     userVideos = json.loads(userVideosOrg.text)["data"]
-    #print("got " + str(len(userVideos)) + " Videos for " + userData["display_name"])
     for vid in userVideos:
         if(datetime.strptime(vid["created_at"], '%Y-%m-%dT%H:%M:%SZ') <= lastDate + timedelta(days=1)):
-            #print("Is newer")
             doLoop = False
             break
         vidList.append({"id":vid["id"],"title":vid["title"], "created": datetime.strptime(vid["created_at"], '%Y-%m-%dT%H:%M:%SZ'), "length":vid["duration"]})
@@ -84,20 +81,14 @@ for vid in vidList:
 
 if(len(vidList) != 0):
     with open("last.txt", 'w') as file:
-        # write contents to the test2.txt file
         file.write(vidList[0]["created"].strftime("%d.%m.%Y"))
-        #print()
 
-#sys.exit()
 
 i = 0
 for vid in vidList:
-    #print("TwitchDownloaderCLI.exe videodownload --id " + str(vid["id"]) + " -o " + vid["created"].strftime("%d.%m.%Y") + "-" + str(i) + ".mp4")
     print("Downloading " + vid["title"])
-    #process = subprocess.Popen("TwitchDownloaderCLI.exe videodownload --id " + "1760160246" + " -o " + vid["created"].strftime("%d.%m.%Y") + "-" + str(i) + ".mp4")
     process = subprocess.Popen("TwitchDownloaderCLI.exe videodownload --id " + str(vid["id"]) + " -o " + vid["created"].strftime("%d.%m.%Y") + "-" + str(i) + ".mp4")
     process.wait()
-    #print(process.returncode)
     if(process.returncode != 0):
         sys.exit("Fatal Error while Downloading Video File!")
     print("Downloading Chat data for " + vid["title"])
@@ -107,24 +98,19 @@ for vid in vidList:
     #print(process.returncode)
     if(process.returncode != 0):
         sys.exit("Fatal Error while Downloading Chat File!")
-    #print("move ^'" + vid["created"].strftime("%d.%m.%Y") + "-" + str(i) + ".json^' " + vid["created"].strftime("%d.%m.%Y") + "-" + str(i) + ".json")
-    #sys.exit()
     print("renaming and moving to Subdirectory")
     process = subprocess.Popen("cmd.exe /C move /Y ^'" + vid["created"].strftime("%d.%m.%Y") + "-" + str(i) + ".json^' " + vid["created"].strftime("%d.%m.%Y") + "-" + str(i) + ".json")
     process.wait()  
-    #print(process.returncode)
     if(process.returncode != 0):
         sys.exit("Fatal Error moving Downloading Chat File!")
         
     process = subprocess.Popen("cmd.exe /C mkdir " + vid["created"].strftime("%d.%m.%Y"))
     process.wait()  
-    #print(process.returncode)
     if(process.returncode != 0):
         sys.exit("Fatal Error making subdir!")
         print("cmd.exe /C move /Y " + vid["created"].strftime("%d.%m.%Y") + "* " + vid["created"].strftime("%d.%m.%Y"))
     process = subprocess.Popen("cmd.exe /C move /Y " + vid["created"].strftime("%d.%m.%Y") + "* " + vid["created"].strftime("%d.%m.%Y"))
     process.wait()  
-    #print(process.returncode)
     if(process.returncode != 0):
         sys.exit("Fatal Error moving Downloading Chat File!")
     i = i + 1
