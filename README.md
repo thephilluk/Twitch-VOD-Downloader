@@ -130,8 +130,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Philip - Currently not available via E-Mail
-
 Project Link: [https://github.com/thephilluk/Twitch-VOD-Downloader](https://github.com/thephilluk/Twitch-VOD-Downloader)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
